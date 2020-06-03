@@ -1,4 +1,4 @@
 
-# dyanmodb-clone
+# golang-lambda
 
-This is a dyanmodb-clone application
+Basic framework for a golang lambda based on chi
