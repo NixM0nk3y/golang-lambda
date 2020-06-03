@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/NixM0nk3y/golang-lambda/pkg/chilogger"
 	"github.com/NixM0nk3y/golang-lambda/pkg/log"
 	"github.com/NixM0nk3y/golang-lambda/pkg/version"
 	"github.com/aws/aws-lambda-go/events"
@@ -11,7 +12,6 @@ import (
 	chiadapter "github.com/awslabs/aws-lambda-go-api-proxy/chi"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
-	l "github.com/treastech/logger"
 	renderPkg "github.com/unrolled/render"
 )
 
@@ -30,10 +30,9 @@ func init() {
 
 	r := chi.NewRouter()
 
-	r.Use(middleware.RequestID)
 	r.Use(middleware.RealIP)
 	r.Use(middleware.Recoverer)
-	r.Use(l.Logger(logger))
+	r.Use(chilogger.Logger())
 
 	r.Route("/v1.0.0", func(r chi.Router) {
 		r.Get("/version", getVersion)

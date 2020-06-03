@@ -8,8 +8,7 @@ require (
 	github.com/aws/aws-xray-sdk-go v1.0.1
 	github.com/awslabs/aws-lambda-go-api-proxy v0.6.0
 	github.com/go-chi/chi v4.1.2+incompatible
-	github.com/go-chi/render v1.0.1
-	github.com/treastech/logger v0.0.0-20180705232552-e381e9ecf2e3
 	github.com/unrolled/render v1.0.3
 	go.uber.org/zap v1.15.0
+	golang.org/x/sys v0.0.0-20190422165155-953cdadca894 // indirect
 )
