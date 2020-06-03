@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  golang-lambda
+
+  SAM Template for template golang lambda
+
+#
+Globals:
+  Function:
+    Timeout: 5
+
+Parameters:
+  apiStage:
+    Type: String
+    Default: "prod"
+
+Resources:
+  golangFunction:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Runtime: go1.x
+      CodeUri: bin/
+      Handler: golang-lambda
+      Timeout: 300
+      MemorySize: 256
+      Tracing: Active
+      Environment:
+        Variables:
+          LOG_LEVEL: INFO
+          AWS_ENDPOINT: ""
+          AWS_S3_FORCEPATHSTYLE: ""
+      Events:
+        Account:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref golangAPI
+            Path: /v1.0.0/{proxy+}
+            Method: GET
+            PayloadFormatVersion: "1.0"
+
+  golangAPI:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      FailOnWarnings: true
+      StageName: !Ref apiStage
+      DefaultRouteSettings:
+        ThrottlingBurstLimit: 50

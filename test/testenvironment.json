@@ -1,0 +1,7 @@
+{
+    "golangFunction": {
+        "LOG_LEVEL": "DEBUG",
+        "AWS_ENDPOINT": "",
+        "AWS_S3_FORCEPATHSTYLE": ""
+    }
+}
