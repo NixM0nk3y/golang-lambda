@@ -34,7 +34,7 @@ func init() {
 	r.Use(middleware.Recoverer)
 	r.Use(chilogger.Logger())
 
-	r.Route("/v1.0.0", func(r chi.Router) {
+	r.Route("/prod/v1.0.0", func(r chi.Router) {
 		r.Get("/version", getVersion)
 
 		r.Get("/panic", func(w http.ResponseWriter, r *http.Request) {

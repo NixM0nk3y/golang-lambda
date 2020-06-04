@@ -19,6 +19,25 @@ all: test lambda/build
 deps:
 	go get -v  ./...
 
+build-golangFunction: lambda/build
+	mkdir -p ${ARTIFACTS_DIR}/bin
+	cp ./bin/${BINARY_NAME} ${ARTIFACTS_DIR}/bin
+
+sam/clean:
+	@rm -rf .aws-sam
+
+sam/build: sam/clean
+	@sam build
+
+sam/validate:
+	@sam validate
+
+sam/deploy: sam/build
+	@sam deploy --template-file .aws-sam/build/template.yaml --stack-name golang-lambda --no-confirm-changeset --capabilities CAPABILITY_IAM --s3-bucket=${SAMBUCKET}
+
+sam/destroy:
+	@aws cloudformation delete-stack --stack-name golang-lambda
+
 lambda/build:
 	$(GOBUILD) -ldflags " \
 		-X github.com/NixM0nk3y/golang-lambda/pkg/version.Version=${VERSION} \

@@ -20,8 +20,8 @@ Resources:
     Type: "AWS::Serverless::Function"
     Properties:
       Runtime: go1.x
-      CodeUri: bin/
-      Handler: golang-lambda
+      CodeUri: .
+      Handler: bin/golang-lambda
       Timeout: 300
       MemorySize: 256
       Tracing: Active
@@ -38,6 +38,8 @@ Resources:
             Path: /v1.0.0/{proxy+}
             Method: GET
             PayloadFormatVersion: "1.0"
+    Metadata:
+      BuildMethod: makefile
 
   golangAPI:
     Type: AWS::Serverless::HttpApi
